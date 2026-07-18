@@ -120,6 +120,32 @@
         .interactive-box {
             pointer-events: auto;
             max-width: 600px;
+            width: 100%;
+        }
+
+        /* ================= STYLE BARU SUSUNAN NAMA VERTIKAL DI COVER ================= */
+        .cover-names-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .cover-name-text {
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin: 0;
+            line-height: 1.2;
+            font-size: 3.5rem; /* Default Desktop */
+        }
+
+        .cover-ampersand {
+            font-size: 2.5rem;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: var(--color-dark-cream);
+            margin: 8px 0;
         }
 
         .btn-buka {
@@ -410,6 +436,15 @@
             .countdown-box small {
                 font-size: 0.75rem !important;
             }
+
+            /* Nama cover susun vertikal di HP */
+            .cover-name-text {
+                font-size: 2.5rem !important;
+            }
+            .cover-ampersand {
+                font-size: 1.8rem !important;
+                margin: 4px 0;
+            }
         }
     </style>
 </head>
@@ -432,7 +467,13 @@
         <div class="cover-overlay-content">
             <div class="interactive-box">
                 <h4 class="mb-2 wedding-font fst-italic" style="color: var(--color-dark-cream);">Our Holy Wedding</h4>
-                <h1 class="wedding-font display-2 mb-4" style="font-weight: 700; letter-spacing: 3px;">Arthur & Claudia</h1>
+                
+                <!-- KODE TERBARU: SUSUNAN NAMA KUNCI 3 BARIS RATA TENGAH -->
+                <div class="cover-names-container wedding-font text-white">
+                    <h1 class="cover-name-text">Arthur</h1>
+                    <div class="cover-ampersand">&</div>
+                    <h1 class="cover-name-text">Claudia</h1>
+                </div>
                 
                 <div class="my-4 px-4 py-3" style="background: rgba(0,0,0,0.6); border-radius: 15px; border: 1px solid rgba(255,255,255,0.05);">
                     <p class="mb-3 small text-white-50 fst-italic">Tanpa mengurangi rasa hormat. Kami mengundang Bapak/Ibu/Saudara/i untuk hadir di acara kami.</p>
