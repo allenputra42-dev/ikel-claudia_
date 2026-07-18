@@ -198,7 +198,7 @@
         .section-title {
             text-align: center;
             margin-bottom: 50px;
-            font-size: 3rem;
+            font-size: 2.5rem;
             color: var(--color-white);
             text-shadow: 0 2px 4px rgba(0,0,0,0.8);
             letter-spacing: 2px;
@@ -258,43 +258,45 @@
             position: relative;
         }
 
-        /* ================= NEW: VISUAL GRID VERTICAL GALLERY CORNER ================= */
-        .vertical-gallery-grid {
-            column-count: 2;
-            column-gap: 20px;
-            width: 100%;
-            margin: 0 auto;
-        }
-
-        @media (max-width: 768px) {
-            .vertical-gallery-grid {
-                column-count: 1;
-            }
-        }
-
-        .gallery-masonry-item {
-            display: inline-block;
-            width: 100%;
-            margin-bottom: 20px;
-            border-radius: 12px;
+        /* ================= KEMBALI KAMPUNG: STYLE GALERI MARQUEE BERJALAN OTOMATIS ================= */
+        .broll-marquee-container {
             overflow: hidden;
+            width: 100%;
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .broll-marquee-track {
+            display: flex;
+            width: max-content;
+            animation: marquee 35s linear infinite;
+        }
+
+        .broll-marquee-track:hover {
+            animation-play-state: paused; /* Berhenti sejenak kalau disentuh/diarahkan mouse */
+        }
+
+        .broll-photo-item {
+            width: 280px;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin: 0 12px;
             border: 4px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.6);
             transition: transform 0.3s ease;
         }
 
-        .gallery-masonry-item:hover {
-            transform: scale(1.02);
+        .broll-photo-item:hover {
+            transform: scale(1.03);
         }
 
-        .gallery-masonry-item img {
-            width: 100%;
-            height: auto;
-            display: block;
-            object-fit: cover;
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); } /* Bergeser setengah track untuk looping tanpa putus */
         }
 
-        /* ================= NEW: DRESS CODE STYLE ================= */
+        /* ================= DRESS CODE STYLE ================= */
         .dresscode-img {
             width: 100%;
             max-width: 500px;
@@ -442,7 +444,7 @@
                         <p class="fw-bold text-white mb-4">(Kolose 3:14)</p>
                         
                         <div class="hr-theme my-3" style="border-top: 1px solid rgba(255,255,255,0.1);"></div>
-                        <p class="small text-custom-muted text-uppercase tracking-wider mb-3">Hari Bahagia Akan Segera Tiba</p>
+                        <p class="small text-custom-muted text-uppercase tracking-wider mb-3">Countdown</p>
                         <div id="countdown" class="d-flex justify-content-center flex-wrap">
                             <div class="countdown-box"><h3 id="hari" class="fw-bold mb-0">00</h3><small>Hari</small></div>
                             <div class="countdown-box"><h3 id="jam" class="fw-bold mb-0">00</h3><small>Jam</small></div>
@@ -453,20 +455,35 @@
                 </div>
             </section>
 
-            <!-- ================= NEW: VERTICAL SCROLL MASONRY GALLERY ================= -->
-            <section class="py-5">
-                <h2 class="wedding-font section-title fade-element">Long Story Short</h2>
-                <div class="vertical-gallery-grid">
-                    <div class="gallery-masonry-item fade-element"><img src="foto1.jpeg" alt="Prewed 1"></div>
-                    <div class="gallery-masonry-item fade-element"><img src="foto2.JPG" alt="Prewed 2"></div>
-                    <div class="gallery-masonry-item fade-element"><img src="foto3.JPG" alt="Prewed 3"></div>
-                    <div class="gallery-masonry-item fade-element"><img src="foto4.JPG" alt="Prewed 4"></div>
-                    <div class="gallery-masonry-item fade-element"><img src="foto5.jpeg" alt="Prewed 5"></div>
-                    <div class="gallery-masonry-item fade-element"><img src="foto6.jpeg" alt="Prewed 6"></div>
-                    <div class="gallery-masonry-item fade-element"><img src="foto7.jpeg" alt="Prewed 7"></div>
-                    <div class="gallery-masonry-item fade-element"><img src="foto8.jpeg" alt="Prewed 8"></div>
-                    <div class="gallery-masonry-item fade-element"><img src="foto9.jpeg" alt="Prewed 9"></div>
-                    <div class="gallery-masonry-item fade-element"><img src="foto10.jpeg" alt="Prewed 10"></div>
+            <!-- ================= KEMBALI KAMPUNG: GALERI MARQUEE BERJALAN OTOMATIS ================= -->
+            <section class="py-5 fade-element">
+                <h2 class="wedding-font section-title">The Groom & The Bride</h2>
+                <div class="broll-marquee-container">
+                    <div class="broll-marquee-track">
+                        <!-- 10 Foto Utama -->
+                        <img src="foto1.jpeg" class="broll-photo-item" alt="Prewed 1">
+                        <img src="foto2.JPG" class="broll-photo-item" alt="Prewed 2">
+                        <img src="foto3.JPG" class="broll-photo-item" alt="Prewed 3">
+                        <img src="foto4.JPG" class="broll-photo-item" alt="Prewed 4">
+                        <img src="foto5.jpeg" class="broll-photo-item" alt="Prewed 5">
+                        <img src="foto6.jpeg" class="broll-photo-item" alt="Prewed 6">
+                        <img src="foto7.jpeg" class="broll-photo-item" alt="Prewed 7">
+                        <img src="foto8.jpeg" class="broll-photo-item" alt="Prewed 8">
+                        <img src="foto9.jpeg" class="broll-photo-item" alt="Prewed 9">
+                        <img src="foto10.jpeg" class="broll-photo-item" alt="Prewed 10">
+                        
+                        <!-- 10 Foto Copy untuk looping tanpa putus -->
+                        <img src="foto1.jpeg" class="broll-photo-item" alt="Prewed 1 Copy">
+                        <img src="foto2.JPG" class="broll-photo-item" alt="Prewed 2 Copy">
+                        <img src="foto3.JPG" class="broll-photo-item" alt="Prewed 3 Copy">
+                        <img src="foto4.JPG" class="broll-photo-item" alt="Prewed 4 Copy">
+                        <img src="foto5.jpeg" class="broll-photo-item" alt="Prewed 5 Copy">
+                        <img src="foto6.jpeg" class="broll-photo-item" alt="Prewed 6 Copy">
+                        <img src="foto7.jpeg" class="broll-photo-item" alt="Prewed 7 Copy">
+                        <img src="foto8.jpeg" class="broll-photo-item" alt="Prewed 8 Copy">
+                        <img src="foto9.jpeg" class="broll-photo-item" alt="Prewed 9 Copy">
+                        <img src="foto10.jpeg" class="broll-photo-item" alt="Prewed 10 Copy">
+                    </div>
                 </div>
             </section>
 
@@ -480,7 +497,7 @@
                             <img src="groom.jpeg" class="mempelai-showcase-img" alt="The Groom Photo">
                             <div>
                                 <span class="mempelai-title-label">The Groom</span>
-                                <h2 class="wedding-font text-white display-6 mb-3" style="font-weight: 600; text-transform: uppercase; font-size: 1.8rem;">ARTHUR IKEL KAINAMA, SH</h2>
+                                <h2 class="wedding-font text-white display-6 mb-3" style="font-weight: 600; text-transform: uppercase; font-size: 1.5rem;">ARTHUR IKEL KAINAMA, SH</h2>
                                 <p class="mb-1 text-custom-muted small">The first Son of</p>
                                 <p class="mb-0 fw-bold text-white fs-6">Mr. Roy & Mrs. Maya</p>
                             </div>
@@ -494,7 +511,7 @@
                             <img src="bride.jpeg" class="mempelai-showcase-img" alt="The Bride Photo">
                             <div>
                                 <span class="mempelai-title-label">The Bride</span>
-                                <h2 class="wedding-font text-white display-6 mb-3" style="font-weight: 600; text-transform: uppercase; font-size: 1.8rem;">CLAUDIA BIANCA GOMIES</h2>
+                                <h2 class="wedding-font text-white display-6 mb-3" style="font-weight: 600; text-transform: uppercase; font-size: 1.5rem;">CLAUDIA BIANCA GOMIES</h2>
                                 <p class="mb-1 text-custom-muted small">The first Daughter of</p>
                                 <p class="mb-0 fw-bold text-white fs-6">Mr. Yongky & Mrs. Vita</p>
                             </div>
@@ -539,7 +556,7 @@
                 </div>
             </section>
 
-            <!-- ================= NEW: DRESS CODE SECTION ================= -->
+            <!-- DRESS CODE SECTION -->
             <section class="py-5 fade-element text-center">
                 <h2 class="wedding-font section-title">Dress Code</h2>
                 <div class="row justify-content-center">
@@ -759,7 +776,7 @@
         const observerOptions = {
             root: null,
             rootMargin: '0px',
-            threshold: 0.10 // Dikit turun agar transisi scrolling kolase terasa lebih responsif
+            threshold: 0.10
         };
 
         const observer = new IntersectionObserver((entries) => {
@@ -772,7 +789,6 @@
             });
         }, observerOptions);
 
-        // Mendaftarkan ulang semua elemen kelas fade-element termasuk foto kolase baru
         document.querySelectorAll('.fade-element').forEach(element => {
             observer.observe(element);
         });
