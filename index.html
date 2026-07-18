@@ -258,37 +258,52 @@
             position: relative;
         }
 
-        /* ================= B-ROLL MARQUEE GALERI ================= */
-        .broll-gallery-container {
-            overflow: hidden;
+        /* ================= NEW: VISUAL GRID VERTICAL GALLERY CORNER ================= */
+        .vertical-gallery-grid {
+            column-count: 2;
+            column-gap: 20px;
             width: 100%;
-            padding: 20px 0;
-            position: relative;
+            margin: 0 auto;
         }
 
-        .broll-marquee-track {
-            display: flex;
-            width: max-content;
-            animation: scrollBroll 40s linear infinite;
+        @media (max-width: 768px) {
+            .vertical-gallery-grid {
+                column-count: 1;
+            }
         }
 
-        .broll-gallery-container:hover .broll-marquee-track {
-            animation-play-state: paused;
-        }
-
-        .broll-photo-item {
-            width: 350px;
-            height: 480px;
-            object-fit: cover;
-            margin-right: 25px;
-            border-radius: 15px;
-            border: 5px solid rgba(255, 255, 255, 0.05);
+        .gallery-masonry-item {
+            display: inline-block;
+            width: 100%;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 4px solid rgba(255, 255, 255, 0.05);
             box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+            transition: transform 0.3s ease;
         }
 
-        @keyframes scrollBroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+        .gallery-masonry-item:hover {
+            transform: scale(1.02);
+        }
+
+        .gallery-masonry-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+
+        /* ================= NEW: DRESS CODE STYLE ================= */
+        .dresscode-img {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            border-radius: 15px;
+            border: 4px solid rgba(230, 223, 211, 0.2);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.7);
+            margin: 0 auto;
+            display: block;
         }
 
         /* Form & Button Styles */
@@ -350,7 +365,6 @@
             border-top: 1px solid rgba(230, 223, 211, 0.05);
         }
 
-        /* TOMBOL FIX: Langsung diset display: flex agar permanen muncul di atas cover */
         #music-control {
             position: fixed;
             bottom: 30px;
@@ -364,7 +378,7 @@
             justify-content: center;
             align-items: center;
             cursor: pointer;
-            z-index: 10000; /* Ditinggikan agar selalu paling depan */
+            z-index: 10000;
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
             transition: transform 0.2s ease;
             color: var(--color-black);
@@ -439,35 +453,20 @@
                 </div>
             </section>
 
-            <!-- Galeri Marquee (Long Story Short) -->
-            <section class="py-5 fade-element">
-                <h2 class="wedding-font section-title">Long Story Short</h2>
-                <div class="broll-gallery-container">
-                   <div class="broll-marquee-track">
-    <!-- 10 Foto Utama -->
-    <img src="foto1.jpeg" class="broll-photo-item" alt="Prewed 1">
-    <img src="foto2.JPG" class="broll-photo-item" alt="Prewed 2"> <!-- Diubah ke .JPG besar -->
-    <img src="foto3.JPG" class="broll-photo-item" alt="Prewed 3"> <!-- Diubah ke .JPG besar -->
-    <img src="foto4.JPG" class="broll-photo-item" alt="Prewed 4"> <!-- Diubah ke .JPG besar -->
-    <img src="foto5.jpeg" class="broll-photo-item" alt="Prewed 5">
-    <img src="foto6.jpeg" class="broll-photo-item" alt="Prewed 6">
-    <img src="foto7.jpeg" class="broll-photo-item" alt="Prewed 7">
-    <img src="foto8.jpeg" class="broll-photo-item" alt="Prewed 8">
-    <img src="foto9.jpeg" class="broll-photo-item" alt="Prewed 9">
-    <img src="foto10.jpeg" class="broll-photo-item" alt="Prewed 10">
-    
-    <!-- 10 Foto Copy untuk looping -->
-    <img src="foto1.jpeg" class="broll-photo-item" alt="Prewed 1 Copy">
-    <img src="foto2.JPG" class="broll-photo-item" alt="Prewed 2 Copy"> <!-- Diubah ke .JPG besar -->
-    <img src="foto3.JPG" class="broll-photo-item" alt="Prewed 3 Copy"> <!-- Diubah ke .JPG besar -->
-    <img src="foto4.JPG" class="broll-photo-item" alt="Prewed 4 Copy"> <!-- Diubah ke .JPG besar -->
-    <img src="foto5.jpeg" class="broll-photo-item" alt="Prewed 5 Copy">
-    <img src="foto6.jpeg" class="broll-photo-item" alt="Prewed 6 Copy">
-    <img src="foto7.jpeg" class="broll-photo-item" alt="Prewed 7 Copy">
-    <img src="foto8.jpeg" class="broll-photo-item" alt="Prewed 8 Copy">
-    <img src="foto9.jpeg" class="broll-photo-item" alt="Prewed 9 Copy">
-    <img src="foto10.jpeg" class="broll-photo-item" alt="Prewed 10 Copy">
-</div>
+            <!-- ================= NEW: VERTICAL SCROLL MASONRY GALLERY ================= -->
+            <section class="py-5">
+                <h2 class="wedding-font section-title fade-element">Long Story Short</h2>
+                <div class="vertical-gallery-grid">
+                    <div class="gallery-masonry-item fade-element"><img src="foto1.jpeg" alt="Prewed 1"></div>
+                    <div class="gallery-masonry-item fade-element"><img src="foto2.JPG" alt="Prewed 2"></div>
+                    <div class="gallery-masonry-item fade-element"><img src="foto3.JPG" alt="Prewed 3"></div>
+                    <div class="gallery-masonry-item fade-element"><img src="foto4.JPG" alt="Prewed 4"></div>
+                    <div class="gallery-masonry-item fade-element"><img src="foto5.jpeg" alt="Prewed 5"></div>
+                    <div class="gallery-masonry-item fade-element"><img src="foto6.jpeg" alt="Prewed 6"></div>
+                    <div class="gallery-masonry-item fade-element"><img src="foto7.jpeg" alt="Prewed 7"></div>
+                    <div class="gallery-masonry-item fade-element"><img src="foto8.jpeg" alt="Prewed 8"></div>
+                    <div class="gallery-masonry-item fade-element"><img src="foto9.jpeg" alt="Prewed 9"></div>
+                    <div class="gallery-masonry-item fade-element"><img src="foto10.jpeg" alt="Prewed 10"></div>
                 </div>
             </section>
 
@@ -532,10 +531,21 @@
                             <hr class="my-4" style="border-color: rgba(255,255,255,0.15);">
                             <p class="mb-1 text-white fs-4"><strong>Amaris Hotel</strong></p>
                             <p class="text-custom-white small">Jl. Diponegoro No.82-84, Kel Ahusen, Kec. Sirimau, Kota Ambon, Maluku</p>
-                           <a href="https://www.google.com/maps/place/Amaris+Hotel+Ambon/data=!4m2!3m1!1s0x0:0x6aabc267199e4444?sa=X&ved=1t:2428&ictx=111" target="_blank" class="btn btn-dark-custom btn-sm mt-3">
-    <i class="fas fa-map-marker-alt me-2"></i>Lihat Peta
-</a>
+                            <a href="https://www.google.com/maps/place/Amaris+Hotel+Ambon/@-3.694663,128.181347,15z/data=!4m2!3m1!1s0x2d6ce845b59740bb:0x12c499c75cb5c7d8" target="_blank" class="btn btn-dark-custom btn-sm mt-3">
+                                <i class="fas fa-map-marker-alt me-2"></i>Lihat Peta
+                            </a>
                         </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= NEW: DRESS CODE SECTION ================= -->
+            <section class="py-5 fade-element text-center">
+                <h2 class="wedding-font section-title">Dress Code</h2>
+                <div class="row justify-content-center">
+                    <div class="col-md-8 card-custom py-5">
+                        <p class="lead text-custom-white mb-4">Demi keindahan dan keserasian bersama di hari bahagia kami, para tamu undangan diharapkan dapat mengenakan pakaian sesuai dengan panduan warna berikut:</p>
+                        <img src="dresscode.png" class="dresscode-img img-fluid" alt="Wedding Dress Code Guide">
                     </div>
                 </div>
             </section>
@@ -749,7 +759,7 @@
         const observerOptions = {
             root: null,
             rootMargin: '0px',
-            threshold: 0.15
+            threshold: 0.10 // Dikit turun agar transisi scrolling kolase terasa lebih responsif
         };
 
         const observer = new IntersectionObserver((entries) => {
@@ -762,6 +772,7 @@
             });
         }, observerOptions);
 
+        // Mendaftarkan ulang semua elemen kelas fade-element termasuk foto kolase baru
         document.querySelectorAll('.fade-element').forEach(element => {
             observer.observe(element);
         });
