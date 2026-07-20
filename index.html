@@ -188,21 +188,21 @@
             overflow: hidden;
         }
 
-        #main-wrapper::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('foto-bg2.jpeg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            filter: blur(10px);
-            transform: scale(1.1); 
-            z-index: -2;
-        }
+#main-wrapper::before {
+    content: "";
+    position: fixed; /* Ubah ke fixed agar background tetap diam saat di-scroll */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh; /* Ubah ke 100vh */
+    background-image: url('foto-bg2.jpg');
+    background-size: cover;
+    background-position: center;
+    filter: blur(10px);
+    transform: scale(1.1); 
+    z-index: -2;
+    will-change: transform; /* Beritahu browser untuk mengoptimalkan ini */
+}
 
         #main-wrapper::after {
             content: "";
@@ -284,22 +284,27 @@
             position: relative;
         }
 
-        /* ================= STYLE GALERI MARQUEE BERJALAN OTOMATIS ================= */
+        /* ================= GALERI FOTO SCROLL + INTERAKTIF GESER ================= */
         .broll-marquee-container {
-            overflow: hidden;
+            overflow-x: auto;
             width: 100%;
             position: relative;
             padding: 20px 0;
+            cursor: grab;
+            scrollbar-width: none;
+        }
+        
+        .broll-marquee-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .broll-marquee-container:active {
+            cursor: grabbing;
         }
 
         .broll-marquee-track {
             display: flex;
             width: max-content;
-            animation: marquee 35s linear infinite;
-        }
-
-        .broll-marquee-track:hover {
-            animation-play-state: paused;
         }
 
         .broll-photo-item {
@@ -311,15 +316,12 @@
             border: 4px solid rgba(255, 255, 255, 0.05);
             box-shadow: 0 15px 30px rgba(0,0,0,0.6);
             transition: transform 0.3s ease;
+            user-select: none;
+            -webkit-user-drag: none;
         }
 
         .broll-photo-item:hover {
             transform: scale(1.03);
-        }
-
-        @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
         }
 
         /* ================= DRESS CODE STYLE ================= */
@@ -513,12 +515,12 @@
                 </div>
             </section>
 
-            <!-- ================= GALERI MARQUEE BERJALAN OTOMATIS ================= -->
+            <!-- ================= GALERI FOTO SCROLL + AUTOMATIC SLIDE ================= -->
             <section class="py-5 fade-element">
                 <h2 class="wedding-font section-title">The Groom & The Bride</h2>
-                <div class="broll-marquee-container">
-                    <div class="broll-marquee-track">
-                        <!-- 10 Foto Utama -->
+                <div class="broll-marquee-container" id="marquee-container">
+                    <div class="broll-marquee-track" id="marquee-track">
+                        <!-- 18 Foto Utama -->
                         <img src="foto1.jpeg" class="broll-photo-item" alt="Prewed 1">
                         <img src="foto2.JPG" class="broll-photo-item" alt="Prewed 2">
                         <img src="foto3.JPG" class="broll-photo-item" alt="Prewed 3">
@@ -529,8 +531,16 @@
                         <img src="foto8.jpeg" class="broll-photo-item" alt="Prewed 8">
                         <img src="foto9.jpeg" class="broll-photo-item" alt="Prewed 9">
                         <img src="foto10.jpeg" class="broll-photo-item" alt="Prewed 10">
+                        <img src="foto11.jpeg" class="broll-photo-item" alt="Prewed 11">
+                        <img src="foto12.jpeg" class="broll-photo-item" alt="Prewed 12">
+                        <img src="foto13.jpeg" class="broll-photo-item" alt="Prewed 13">
+                        <img src="foto14.jpeg" class="broll-photo-item" alt="Prewed 14">
+                        <img src="foto15.jpg" class="broll-photo-item" alt="Prewed 15">
+                        <img src="foto16.jpg" class="broll-photo-item" alt="Prewed 16">
+                        <img src="foto17.jpg" class="broll-photo-item" alt="Prewed 17">
+                        <img src="foto18.jpg" class="broll-photo-item" alt="Prewed 18">
                         
-                        <!-- 10 Foto Copy untuk looping -->
+                        <!-- 18 Foto Copy untuk looping tak terbatas -->
                         <img src="foto1.jpeg" class="broll-photo-item" alt="Prewed 1 Copy">
                         <img src="foto2.JPG" class="broll-photo-item" alt="Prewed 2 Copy">
                         <img src="foto3.JPG" class="broll-photo-item" alt="Prewed 3 Copy">
@@ -541,6 +551,14 @@
                         <img src="foto8.jpeg" class="broll-photo-item" alt="Prewed 8 Copy">
                         <img src="foto9.jpeg" class="broll-photo-item" alt="Prewed 9 Copy">
                         <img src="foto10.jpeg" class="broll-photo-item" alt="Prewed 10 Copy">
+                        <img src="foto11.jpeg" class="broll-photo-item" alt="Prewed 11 Copy">
+                        <img src="foto12.jpeg" class="broll-photo-item" alt="Prewed 12 Copy">
+                        <img src="foto13.jpeg" class="broll-photo-item" alt="Prewed 13 Copy">
+                        <img src="foto14.jpeg" class="broll-photo-item" alt="Prewed 14 Copy">
+                        <img src="foto15.jpg" class="broll-photo-item" alt="Prewed 15 Copy">
+                        <img src="foto16.jpg" class="broll-photo-item" alt="Prewed 16 Copy">
+                        <img src="foto17.jpg" class="broll-photo-item" alt="Prewed 17 Copy">
+                        <img src="foto18.jpg" class="broll-photo-item" alt="Prewed 18 Copy">
                     </div>
                 </div>
             </section>
@@ -899,6 +917,104 @@
                 btn.innerHTML = '<i class="fas fa-comment-dots me-2"></i>Kirim Ucapan';
             });
         });
+
+/* ================= JAVASCRIPT BARU UNTUK SCROLL OTOMATIS + GESER MANUAL ================= */
+const slider = document.getElementById('marquee-container');
+const track = document.getElementById('marquee-track');
+let isDown = false;
+let startX;
+let scrollLeft;
+let autoScrollSpeed = 0.5; 
+let animationFrameId;
+let isHoveredOrDragged = false;
+let currentScroll = 0; 
+let halfWidth = 0; // Variabel untuk menyimpan lebar galeri
+
+// Hitung ukuran galeri hanya sekali saat halaman selesai dimuat
+window.addEventListener('load', () => {
+    halfWidth = track.scrollWidth / 2;
+});
+
+// Hitung ulang hanya jika pengguna memutar/mengubah ukuran layar hp
+window.addEventListener('resize', () => {
+    halfWidth = track.scrollWidth / 2;
+});
+
+function stepAnimation() {
+    // Pastikan halfWidth sudah dihitung (lebih dari 0)
+    if (!isHoveredOrDragged && halfWidth > 0) {
+        currentScroll += autoScrollSpeed;
+        slider.scrollLeft = currentScroll;
+        
+        if (slider.scrollLeft >= halfWidth) {
+            slider.scrollLeft = 0;
+            currentScroll = 0; 
+        }
+    } else {
+        currentScroll = slider.scrollLeft;
+    }
+    animationFrameId = requestAnimationFrame(stepAnimation);
+}
+
+animationFrameId = requestAnimationFrame(stepAnimation);
+
+slider.addEventListener('mouseenter', () => { isHoveredOrDragged = true; });
+slider.addEventListener('mouseleave', () => { 
+    if(!isDown) {
+        isHoveredOrDragged = false; 
+    }
+});
+
+slider.addEventListener('mousedown', (e) => {
+    isDown = true;
+    isHoveredOrDragged = true;
+    startX = e.pageX - slider.offsetLeft;
+    scrollLeft = slider.scrollLeft;
+});
+
+window.addEventListener('mouseup', () => {
+    if (isDown) {
+        isDown = false;
+        isHoveredOrDragged = false;
+    }
+});
+
+slider.addEventListener('mousemove', (e) => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - slider.offsetLeft;
+    const walk = (x - startX) * 1.5; 
+    slider.scrollLeft = scrollLeft - walk;
+
+    if (halfWidth > 0) {
+        if (slider.scrollLeft >= halfWidth) slider.scrollLeft = 0;
+        if (slider.scrollLeft <= 0) slider.scrollLeft = halfWidth;
+    }
+});
+
+slider.addEventListener('touchstart', (e) => {
+    isHoveredOrDragged = true;
+    isDown = true;
+    startX = e.touches[0].pageX - slider.offsetLeft;
+    scrollLeft = slider.scrollLeft;
+});
+
+slider.addEventListener('touchend', () => {
+    isDown = false;
+    isHoveredOrDragged = false;
+});
+
+slider.addEventListener('touchmove', (e) => {
+    if(!isDown) return;
+    const x = e.touches[0].pageX - slider.offsetLeft;
+    const walk = (x - startX) * 1.5;
+    slider.scrollLeft = scrollLeft - walk;
+
+    if (halfWidth > 0) {
+        if (slider.scrollLeft >= halfWidth) slider.scrollLeft = 0;
+        if (slider.scrollLeft <= 0) slider.scrollLeft = halfWidth;
+    }
+});
     </script>
 </body>
 </html>
