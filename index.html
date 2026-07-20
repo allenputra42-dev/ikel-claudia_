@@ -188,21 +188,21 @@
             overflow: hidden;
         }
 
-#main-wrapper::before {
-    content: "";
-    position: fixed; /* Ubah ke fixed agar background tetap diam saat di-scroll */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh; /* Ubah ke 100vh */
-    background-image: url('foto-bg2.jpg');
-    background-size: cover;
-    background-position: center;
-    filter: blur(10px);
-    transform: scale(1.1); 
-    z-index: -2;
-    will-change: transform; /* Beritahu browser untuk mengoptimalkan ini */
-}
+        #main-wrapper::before {
+            content: "";
+            position: fixed; 
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh; 
+            background-image: url('foto-bg2.jpg');
+            background-size: cover;
+            background-position: center;
+            filter: blur(10px);
+            transform: scale(1.1); 
+            z-index: -2;
+            will-change: transform; 
+        }
 
         #main-wrapper::after {
             content: "";
@@ -284,22 +284,13 @@
             position: relative;
         }
 
-        /* ================= GALERI FOTO SCROLL + INTERAKTIF GESER ================= */
+        /* ================= GALERI FOTO SCROLL + AUTOMATIC SLIDE ================= */
         .broll-marquee-container {
-            overflow-x: auto;
+            overflow-x: hidden; /* Mencegah scroll manual/lag */
             width: 100%;
             position: relative;
             padding: 20px 0;
-            cursor: grab;
-            scrollbar-width: none;
-        }
-        
-        .broll-marquee-container::-webkit-scrollbar {
-            display: none;
-        }
-
-        .broll-marquee-container:active {
-            cursor: grabbing;
+            pointer-events: none; /* Mencegah klik/drag pada area ini */
         }
 
         .broll-marquee-track {
@@ -318,6 +309,7 @@
             transition: transform 0.3s ease;
             user-select: none;
             -webkit-user-drag: none;
+            pointer-events: auto; /* Agar animasi hover tetap berfungsi jika diperlukan */
         }
 
         .broll-photo-item:hover {
@@ -470,7 +462,6 @@
             <div class="interactive-box">
                 <h4 class="mb-2 wedding-font fst-italic" style="color: var(--color-dark-cream);">Our Holy Wedding</h4>
                 
-                <!-- KODE TERBARU: SUSUNAN NAMA KUNCI 3 BARIS RATA TENGAH -->
                 <div class="cover-names-container wedding-font text-white">
                     <h1 class="cover-name-text">Arthur</h1>
                     <div class="cover-ampersand">&</div>
@@ -643,6 +634,29 @@
                 </div>
             </section>
 
+            <!-- Wedding Gift -->
+            <section class="py-5 text-center fade-element">
+                <h2 class="wedding-font section-title">Wedding Gift</h2>
+                <div class="row justify-content-center">
+                    <div class="col-md-8 mb-4">
+                        <p class="lead text-custom-white">Doa restu Anda merupakan karunia yang sangat berarti bagi kami. Namun jika Anda ingin memberikan tanda kasih, dapat melalui fitur di bawah ini:</p>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-md-6 col-lg-5">
+                        <div class="card-custom text-center py-5 shadow">
+                            <i class="fas fa-credit-card fa-3x mb-4" style="color: var(--color-dark-cream);"></i>
+                            <h4 class="mb-3 fw-bold text-uppercase text-custom-white" style="letter-spacing: 2px;">Bank BCA</h4>
+                            <p class="mb-1 fs-3 font-monospace fw-bold bg-dark p-2 rounded text-white" id="norek">0440 963765</p>
+                            <p class="text-white fs-5 fw-bold mt-2">A.n Claudia Bianca Gomies</p>
+                            <button class="btn btn-outline-dark mt-3" onclick="copyRekening()">
+                                <i class="fas fa-copy me-2"></i>Salin Nomor Rekening
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <!-- RSVP Kehadiran -->
             <section class="py-5 fade-element">
                 <div class="row justify-content-center">
@@ -672,29 +686,6 @@
                                     <i class="fas fa-paper-plane me-2"></i>Kirim Konfirmasi (RSVP)
                                 </button>
                             </form>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Wedding Gift -->
-            <section class="py-5 text-center fade-element">
-                <h2 class="wedding-font section-title">Wedding Gift</h2>
-                <div class="row justify-content-center">
-                    <div class="col-md-8 mb-4">
-                        <p class="lead text-custom-white">Doa restu Anda merupakan karunia yang sangat berarti bagi kami. Namun jika Anda ingin memberikan tanda kasih, dapat melalui fitur di bawah ini:</p>
-                    </div>
-                </div>
-                <div class="row justify-content-center">
-                    <div class="col-md-6 col-lg-5">
-                        <div class="card-custom text-center py-5 shadow">
-                            <i class="fas fa-credit-card fa-3x mb-4" style="color: var(--color-dark-cream);"></i>
-                            <h4 class="mb-3 fw-bold text-uppercase text-custom-white" style="letter-spacing: 2px;">Bank BCA</h4>
-                            <p class="mb-1 fs-3 font-monospace fw-bold bg-dark p-2 rounded text-white" id="norek">0440 963765</p>
-                            <p class="text-white fs-5 fw-bold mt-2">A.n Claudia Bianca Gomies</p>
-                            <button class="btn btn-outline-dark mt-3" onclick="copyRekening()">
-                                <i class="fas fa-copy me-2"></i>Salin Nomor Rekening
-                            </button>
                         </div>
                     </div>
                 </div>
@@ -918,103 +909,36 @@
             });
         });
 
-/* ================= JAVASCRIPT BARU UNTUK SCROLL OTOMATIS + GESER MANUAL ================= */
-const slider = document.getElementById('marquee-container');
-const track = document.getElementById('marquee-track');
-let isDown = false;
-let startX;
-let scrollLeft;
-let autoScrollSpeed = 0.5; 
-let animationFrameId;
-let isHoveredOrDragged = false;
-let currentScroll = 0; 
-let halfWidth = 0; // Variabel untuk menyimpan lebar galeri
+        /* ================= JAVASCRIPT BARU UNTUK SCROLL OTOMATIS ================= */
+        const slider = document.getElementById('marquee-container');
+        const track = document.getElementById('marquee-track');
+        let autoScrollSpeed = 0.4; // Dibuat pelan
+        let animationFrameId;
+        let currentScroll = 0; 
+        let halfWidth = 0;
 
-// Hitung ukuran galeri hanya sekali saat halaman selesai dimuat
-window.addEventListener('load', () => {
-    halfWidth = track.scrollWidth / 2;
-});
+        window.addEventListener('load', () => {
+            halfWidth = track.scrollWidth / 2;
+        });
 
-// Hitung ulang hanya jika pengguna memutar/mengubah ukuran layar hp
-window.addEventListener('resize', () => {
-    halfWidth = track.scrollWidth / 2;
-});
+        window.addEventListener('resize', () => {
+            halfWidth = track.scrollWidth / 2;
+        });
 
-function stepAnimation() {
-    // Pastikan halfWidth sudah dihitung (lebih dari 0)
-    if (!isHoveredOrDragged && halfWidth > 0) {
-        currentScroll += autoScrollSpeed;
-        slider.scrollLeft = currentScroll;
-        
-        if (slider.scrollLeft >= halfWidth) {
-            slider.scrollLeft = 0;
-            currentScroll = 0; 
+        function stepAnimation() {
+            if (halfWidth > 0) {
+                currentScroll += autoScrollSpeed;
+                slider.scrollLeft = currentScroll;
+                
+                if (slider.scrollLeft >= halfWidth) {
+                    slider.scrollLeft = 0;
+                    currentScroll = 0; 
+                }
+            }
+            animationFrameId = requestAnimationFrame(stepAnimation);
         }
-    } else {
-        currentScroll = slider.scrollLeft;
-    }
-    animationFrameId = requestAnimationFrame(stepAnimation);
-}
 
-animationFrameId = requestAnimationFrame(stepAnimation);
-
-slider.addEventListener('mouseenter', () => { isHoveredOrDragged = true; });
-slider.addEventListener('mouseleave', () => { 
-    if(!isDown) {
-        isHoveredOrDragged = false; 
-    }
-});
-
-slider.addEventListener('mousedown', (e) => {
-    isDown = true;
-    isHoveredOrDragged = true;
-    startX = e.pageX - slider.offsetLeft;
-    scrollLeft = slider.scrollLeft;
-});
-
-window.addEventListener('mouseup', () => {
-    if (isDown) {
-        isDown = false;
-        isHoveredOrDragged = false;
-    }
-});
-
-slider.addEventListener('mousemove', (e) => {
-    if (!isDown) return;
-    e.preventDefault();
-    const x = e.pageX - slider.offsetLeft;
-    const walk = (x - startX) * 1.5; 
-    slider.scrollLeft = scrollLeft - walk;
-
-    if (halfWidth > 0) {
-        if (slider.scrollLeft >= halfWidth) slider.scrollLeft = 0;
-        if (slider.scrollLeft <= 0) slider.scrollLeft = halfWidth;
-    }
-});
-
-slider.addEventListener('touchstart', (e) => {
-    isHoveredOrDragged = true;
-    isDown = true;
-    startX = e.touches[0].pageX - slider.offsetLeft;
-    scrollLeft = slider.scrollLeft;
-});
-
-slider.addEventListener('touchend', () => {
-    isDown = false;
-    isHoveredOrDragged = false;
-});
-
-slider.addEventListener('touchmove', (e) => {
-    if(!isDown) return;
-    const x = e.touches[0].pageX - slider.offsetLeft;
-    const walk = (x - startX) * 1.5;
-    slider.scrollLeft = scrollLeft - walk;
-
-    if (halfWidth > 0) {
-        if (slider.scrollLeft >= halfWidth) slider.scrollLeft = 0;
-        if (slider.scrollLeft <= 0) slider.scrollLeft = halfWidth;
-    }
-});
+        animationFrameId = requestAnimationFrame(stepAnimation);
     </script>
 </body>
 </html>
